@@ -1,20 +1,29 @@
 const arr = Array.from(document.querySelectorAll('.has-tooltip'));
-const toollTip = document.querySelector('.tooltip');
-let coord = toollTip.getBoundingClientRect();
+const toolTip = document.querySelector('.tooltip');
+let coord = toolTip.getBoundingClientRect();
+console.log(coord)
 
 
-for (let i = 0; i < arr.length; i++) {
-    arr[i].addEventListener('click', (e) => {
 
-        toollTip.textContent = e.target.title;
-        toollTip.classList.add('tooltip_active');
-        // let arrCoord = e.getBoundingClientRect();
-        // coord = arrCoord;
+arr.forEach(item => item.addEventListener('click', (e) => {
+
+    toolTip.textContent = e.target.title;
+    toolTip.classList.add('tooltip_active');
+
+    let tooltipCoord = e.target.getBoundingClientRect();
+    coord.x = tooltipCoord.x
+    coord.y = tooltipCoord.y
+    toolTip.dataset.position = "bottom";
+    toolTip.style = `left: ${tooltipCoord.x}; top: ${tooltipCoord.y}`
 
 
-        e.preventDefault();
 
 
-    })
-}
+
+
+
+    e.preventDefault();
+
+
+}))
 
