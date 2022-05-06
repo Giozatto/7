@@ -18,10 +18,6 @@ arr.forEach(item => item.addEventListener('click', (e) => {
 
 
 
-
-
-
-
     e.preventDefault();
 
 
