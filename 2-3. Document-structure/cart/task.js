@@ -1,9 +1,8 @@
 const productPlus = Array.from(document.querySelectorAll('.product__quantity-control_inc')); /* + */
 const productMinus = Array.from(document.querySelectorAll('.product__quantity-control_dec')); /* - */
 const addProduct = Array.from(document.querySelectorAll('.product__add')); /*Кнопка добавить*/
-// const products = Array.from(document.querySelectorAll('.products')); /*Список продуктов*/
+const busket = document.querySelector('.cart');
 const cartProduct = document.querySelector('.cart__products'); /*разметка добавленного в корзину товара*/
-
 
 // При нажатии на + увеличивает кол-во на 1
 for (let i = 0; i < productPlus.length; i++) {
@@ -37,19 +36,33 @@ for (let i = 0; i < addProduct.length; i++) {
         let image = e.target.closest('.product').querySelector('img');
         let id = e.target.closest('.product').dataset.id;
         let cart = document.createElement('div');
-        cart.innerHTML = `<div class="cart__product" ${id}>
+
+        const arr = Array.from(busket.lastElementChild.children)
+        for (let i = 0; i < arr.length; i++) {
+            let item = arr[i];
+            if (item.dataset.id == id) {
+                let quan = item.querySelector('.cart__product-count').textContent;
+                quan = Number(quan);
+                quan += Number(quantity);
+                item.querySelector('.cart__product-count').textContent = quan;
+                return;
+            }
+        }
+
+        cart.classList.add("cart__product");
+        cart.dataset.id = id;
+        cart.innerHTML = `
         <img class="cart__product-image" src="${image.src}">
         <div class="remove">x</div>
-        <div class="cart__product-count">${quantity}</div>
-        
-    </div>`;
+        <div class="cart__product-count">${quantity}</div>`;
+
         cartProduct.appendChild(cart);
-        const removeCart = cartProduct.querySelector('.remove');
+        e.target.closest('.product').querySelector('.product__quantity-value').textContent = 1;
+
+        const removeCart = cartProduct.lastChild.querySelector('.remove');
+
         removeCart.addEventListener('click', (e) => {
             e.target.closest('.cart__product').remove();
         })
-
-        console.log(removeCart)
     })
-
 }
