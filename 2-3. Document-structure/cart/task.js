@@ -32,21 +32,27 @@ const product = document.createElement('div');
 // При нажатии на кнопку добавляет продукт в корзину
 for (let i = 0; i < addProduct.length; i++) {
     addProduct[i].addEventListener('click', (e) => {
+
         let quantity = e.target.closest('.product').querySelector('.product__quantity-value').textContent;
         let image = e.target.closest('.product').querySelector('img');
         let id = e.target.closest('.product').dataset.id;
         let cart = document.createElement('div');
 
-        const arr = Array.from(busket.lastElementChild.children)
-        for (let i = 0; i < arr.length; i++) {
-            let item = arr[i];
-            if (item.dataset.id == id) {
-                let quan = item.querySelector('.cart__product-count').textContent;
-                quan = Number(quan);
-                quan += Number(quantity);
-                item.querySelector('.cart__product-count').textContent = quan;
-                return;
-            }
+        const arr = Array.from(busket.lastElementChild.children);
+        const currItem = arr.find(item => item.dataset.id == id);
+        console.log(currItem)
+        if (currItem !== undefined) {
+            let quan = currItem.querySelector('.cart__product-count').textContent;
+            quan = Number(quan);
+            quan += Number(quantity);
+            currItem.querySelector('.cart__product-count').textContent = quan;
+            e.target.closest('.product').querySelector('.product__quantity-value').textContent = 1;
+            return;
+        }
+
+        if (quantity == 0) {
+            e.target.closest('.product').querySelector('.product__quantity-value').textContent = 1;
+            return
         }
 
         cart.classList.add("cart__product");

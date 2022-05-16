@@ -2,15 +2,18 @@ const arr = Array.from(document.querySelectorAll('.has-tooltip')); /*Масси�
 const toolTip = document.querySelector('.tooltip'); /*Подсказка*/
 let coord = toolTip.getBoundingClientRect(); /*Координаты подсказки*/
 
+
 arr.forEach(item => item.addEventListener('click', (e) => {
     toolTip.textContent = e.target.title;
-    toolTip.classList.add('tooltip_active');
+    toolTip.classList.toggle('tooltip_active');
     let tooltipCoord = e.target.getBoundingClientRect(); /*Координаты клика*/
     coord = toolTip.getBoundingClientRect();
 
     toolTip.style.top = `${tooltipCoord.y + tooltipCoord.height}px`;
     toolTip.style.left = `${tooltipCoord.x + ((tooltipCoord.width - coord.width) / 2)}px`;
-    // toolTip.dataset.position = "bottom";
+    prevItem = e.target;
+
+
 
     e.preventDefault();
 }))
