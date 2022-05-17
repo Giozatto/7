@@ -19,7 +19,7 @@ for (let i = 0; i < productMinus.length; i++) {
     productMinus[i].addEventListener('click', (e) => {
         let value = e.target.closest('.product__controls').querySelector('.product__quantity-value');
         let number = Number(value.textContent);
-        if (number === 0) {
+        if (number === 1) { /* Не позволяю выбирать пользовотелю выбрать ноль позиций  */
             return;
         }
         number--;
@@ -40,7 +40,7 @@ for (let i = 0; i < addProduct.length; i++) {
 
         const arr = Array.from(busket.lastElementChild.children);
         const currItem = arr.find(item => item.dataset.id == id);
-        console.log(currItem)
+
         if (currItem !== undefined) {
             let quan = currItem.querySelector('.cart__product-count').textContent;
             quan = Number(quan);
@@ -48,11 +48,6 @@ for (let i = 0; i < addProduct.length; i++) {
             currItem.querySelector('.cart__product-count').textContent = quan;
             e.target.closest('.product').querySelector('.product__quantity-value').textContent = 1;
             return;
-        }
-
-        if (quantity == 0) {
-            e.target.closest('.product').querySelector('.product__quantity-value').textContent = 1;
-            return
         }
 
         cart.classList.add("cart__product");

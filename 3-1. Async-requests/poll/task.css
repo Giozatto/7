@@ -9,3 +9,11 @@ body {
 .poll__title {
   margin-bottom: 20px;
 }
+
+.poll__answer {
+  margin-left: 5px;
+}
+
+button:first-child{
+  margin-left: 0px;
+}
